@@ -1,25 +1,26 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(["require", 'lodash'], function (require, _) {
-            var preOptions = factory(_);
+            var module = factory(_);
 
             if (require.specified('khoaijs')) {
                 require(['khoaijs'], function (Khoai) {
-                    Khoai.PreOptions = preOptions;
+                    Khoai.PreOptions = module;
                 });
             }
 
+            root.PreOptions = module;
 
-            return preOptions;
+            return module;
         });
     } else {
-        var preOptions = factory(root._);
+        var module = factory(root._);
 
         if (root.Khoai) {
-            root.Khoai.PreOptions = preOptions;
+            root.Khoai.PreOptions = module;
         }
-        
-        root.PreOptions = preOptions;
+
+        root.PreOptions = module;
     }
 }(this, function (_) {
     "use strict";
